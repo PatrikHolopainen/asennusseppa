@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AsennusSeppä – Lämpöpumput & kodin palvelut</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1C2B3A;
+      --ink-light: #2C3E50;
+      --copper:    #C87941;
+      --copper-dk: #a8622f;
+      --copper-lt: #e09060;
+      --sand:      #F8F6F2;
+      --sand-dk:   #EDE9E2;
+      --white:     #ffffff;
+      --muted:     #7a8a98;
+      --serif:     'Sora', sans-serif;
+      --body:      'DM Sans', sans-serif;
+      --ease:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--sand);
+      color: var(--ink-light);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+      background: transparent;
+      transition: background 0.4s var(--ease), backdrop-filter 0.4s var(--ease), box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(28,43,58,0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(200,121,65,0.25);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-weight: 800; font-size: 1.2rem;
+      color: var(--white); letter-spacing: -0.02em; text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo span { color: var(--copper); }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.78); text-decoration: none;
+      transition: color 0.2s;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--copper-lt); }
+    .nav-cta {
+      background: var(--copper); color: var(--white) !important;
+      padding: 0.5rem 1.2rem; border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--copper-dk) !important; color: var(--white) !important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; top: 68px; z-index: 99;
+      background: rgba(28,43,58,0.98); padding: 2rem 1.5rem;
+      flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white); text-decoration: none; font-size: 1.1rem;
+      font-family: var(--serif); font-weight: 600; padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: block;
+    }
+    .mobile-menu a:last-child { border-bottom: none; color: var(--copper); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ─── SECTION DIVIDER ─── */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+      opacity: 0.4;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; height: 100svh; min-height: 600px;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1800&q=80&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(28,43,58,0.92) 0%, rgba(28,43,58,0.75) 60%, rgba(44,62,80,0.6) 100%);
+    }
+    .hero-pattern {
+      position: absolute; inset: 0; opacity: 0.07;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        var(--copper) 0px, var(--copper) 1px,
+        transparent 1px, transparent 40px
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 clamp(1.5rem, 8vw, 8rem);
+      max-width: 800px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--copper-lt);
+      margin-bottom: 1.5rem;
+      opacity: 0; transform: translateY(20px);
+      animation: slideUp 0.7s var(--ease) 0.2s forwards;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--copper);
+    }
+    h1.hero-title {
+      font-family: var(--serif); font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.05; color: var(--white);
+      letter-spacing: -0.03em;
+      opacity: 0; transform: translateY(28px);
+      animation: slideUp 0.8s var(--ease) 0.35s forwards;
+    }
+    h1.hero-title em {
+      font-style: normal; color: var(--copper);
+    }
+    .hero-sub {
+      margin-top: 1.5rem; font-size: 1.05rem; line-height: 1.75;
+      color: rgba(255,255,255,0.7); max-width: 520px;
+      opacity: 0; transform: translateY(20px);
+      animation: slideUp 0.8s var(--ease) 0.5s forwards;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem;
+      opacity: 0; transform: translateY(20px);
+      animation: slideUp 0.8s var(--ease) 0.65s forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--copper); color: var(--white);
+      font-family: var(--serif); font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.02em; padding: 0.9rem 1.8rem; border-radius: 4px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(200,121,65,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--copper-dk); transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(200,121,65,0.45);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--white);
+      font-family: var(--serif); font-weight: 600; font-size: 0.9rem;
+      padding: 0.9rem 1.8rem; border-radius: 4px; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--copper-lt); color: var(--copper-lt);
+      transform: translateY(-2px);
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: rgba(255,255,255,0.45); font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0; animation: fadeIn 1s ease 1.2s forwards;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 0.4; }
+      50% { transform: scaleY(1.3); opacity: 0.8; }
+    }
+
+    /* ─── STATS ─── */
+    #stats {
+      background: var(--ink);
+      padding: 4rem clamp(1.5rem, 5vw, 4rem);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: rgba(255,255,255,0.06);
+      max-width: 1100px; margin: 0 auto;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-item {
+      background: var(--ink);
+      padding: 2.5rem 2rem; text-align: center;
+      position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .stat-item::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 2px; height: 0; background: var(--copper);
+      transition: height 0.5s var(--ease);
+    }
+    .stat-item:hover::before { height: 100%; }
+    .stat-item:hover { background: rgba(28,43,58,0.5); }
+    .stat-number {
+      font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800; color: var(--copper);
+      line-height: 1; letter-spacing: -0.03em;
+    }
+    .stat-label {
+      margin-top: 0.5rem; font-size: 0.8rem; font-weight: 500;
+      color: rgba(255,255,255,0.55); letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 700px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 380px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-heading {
+      font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800; color: var(--ink); letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .section-heading span { color: var(--copper); }
+    .section-sub {
+      margin-top: 0.8rem; font-size: 1rem; color: var(--muted);
+      max-width: 500px; line-height: 1.7;
+    }
+    .heading-line {
+      display: block; width: 36px; height: 3px;
+      background: var(--copper); border-radius: 2px; margin-bottom: 1.2rem;
+    }
+
+    /* fade-in on scroll */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--sand); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 6px; padding: 2.5rem 2rem;
+      border: 1px solid rgba(28,43,58,0.08);
+      border-top: 3px solid transparent;
+      transition: border-top-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-top-color: var(--copper);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(28,43,58,0.12);
+    }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: rgba(200,121,65,0.1); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem; color: var(--copper);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .service-card:hover .service-icon {
+      background: var(--copper); color: var(--white);
+      transform: scale(1.08);
+    }
+    .service-card h3 {
+      font-family: var(--serif); font-size: 1.3rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 0.8rem; letter-spacing: -0.02em;
+    }
+    .service-card p {
+      font-size: 0.92rem; color: var(--muted); line-height: 1.8;
+    }
+    .service-list {
+      list-style: none; margin-top: 1rem; display: flex;
+      flex-direction: column; gap: 0.45rem;
+    }
+    .service-list li {
+      font-size: 0.88rem; color: var(--ink-light);
+      display: flex; align-items: center; gap: 0.55rem;
+    }
+    .service-list li::before {
+      content: ''; display: block; width: 5px; height: 5px;
+      background: var(--copper); border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* Brands row */
+    .brands-row {
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid rgba(28,43,58,0.08);
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .brands-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted);
+      white-space: nowrap;
+    }
+    .brands-list {
+      display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;
+    }
+    .brands-list span {
+      font-family: var(--serif); font-size: 0.95rem; font-weight: 700;
+      color: var(--ink); letter-spacing: -0.01em;
+      opacity: 0.7; transition: opacity 0.2s;
+    }
+    .brands-list span:hover { opacity: 1; }
+
+    @media (max-width: 800px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 500px) and (max-width: 800px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ─── REFERENSSIT ─── */
+    #referenssit { background: var(--sand-dk); }
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.25rem;
+      margin-top: 3.5rem;
+    }
+    .ref-grid .ref-card:first-child {
+      grid-column: span 2;
+    }
+    .ref-card {
+      position: relative; border-radius: 6px; overflow: hidden;
+      aspect-ratio: 4/3; cursor: pointer;
+    }
+    .ref-card:first-child { aspect-ratio: 16/7; }
+    .ref-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s var(--ease), filter 0.4s;
+      filter: brightness(0.85);
+    }
+    .ref-card:hover img { transform: scale(1.06); filter: brightness(0.7); }
+    .ref-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28,43,58,0.85) 0%, transparent 55%);
+      padding: 1.5rem;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .ref-category {
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--copper-lt); margin-bottom: 0.3rem; font-weight: 500;
+    }
+    .ref-title {
+      font-family: var(--serif); font-size: 1rem; font-weight: 700;
+      color: var(--white); line-height: 1.3;
+    }
+    .ref-caption {
+      margin-top: 0.4rem; font-size: 0.78rem; color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s var(--ease), opacity 0.4s;
+      opacity: 0;
+    }
+    .ref-card:hover .ref-caption { max-height: 80px; opacity: 1; }
+
+    @media (max-width: 700px) {
+      .ref-grid {
+        grid-template-columns: 1fr;
+      }
+      .ref-grid .ref-card:first-child {
+        grid-column: span 1;
+        aspect-ratio: 16/9;
+      }
+      .ref-card { aspect-ratio: 4/3; }
+    }
+
+    /* ─── YRITYS ─── */
+    #yritys { background: var(--sand); }
+    .yritys-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .yritys-text h2 { margin-bottom: 1.5rem; }
+    .yritys-text p {
+      font-size: 0.97rem; color: var(--ink-light); line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .yritys-values {
+      list-style: none; margin-top: 1.8rem; display: flex;
+      flex-direction: column; gap: 0.8rem;
+    }
+    .yritys-values li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.92rem; color: var(--ink-light); font-weight: 500;
+    }
+    .yritys-values li::before {
+      content: '';
+      display: block; width: 6px; height: 6px;
+      background: var(--copper); border-radius: 50%;
+      flex-shrink: 0; margin-top: 0.6rem;
+    }
+    .yritys-img {
+      position: relative; border-radius: 6px; overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .yritys-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .yritys-img::after {
+      content: ''; position: absolute; inset: 0;
+      border: 2px solid var(--copper); border-radius: 6px;
+      transform: translate(12px, 12px);
+      z-index: -1;
+    }
+
+    @media (max-width: 800px) {
+      .yritys-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .yritys-img { aspect-ratio: 16/9; order: -1; }
+    }
+
+    /* ─── CONTACT ─── */
+    #yhteystiedot {
+      background: var(--ink);
+    }
+    #yhteystiedot .section-heading { color: var(--white); }
+    #yhteystiedot .section-heading span { color: var(--copper); }
+    #yhteystiedot .section-sub { color: rgba(255,255,255,0.5); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3.5rem; margin-top: 3.5rem;
+      align-items: start;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.07em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
+    }
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px; padding: 0.85rem 1rem;
+      color: var(--white); font-family: var(--body); font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none; resize: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.22); }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--copper); background: rgba(200,121,65,0.06);
+    }
+    .form-group textarea { min-height: 130px; }
+    .contact-form .btn-primary {
+      align-self: flex-start; margin-top: 0.5rem;
+    }
+    .contact-info {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .contact-info-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      font-size: 0.9rem; color: rgba(255,255,255,0.65);
+    }
+    .contact-info-icon {
+      width: 36px; height: 36px; background: rgba(200,121,65,0.15);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      color: var(--copper); flex-shrink: 0;
+    }
+    .contact-info-text strong {
+      display: block; font-size: 0.75rem; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 0.15rem;
+    }
+    .contact-info-text a {
+      color: inherit; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-info-text a:hover { color: var(--copper-lt); }
+
+    .social-links {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; gap: 1rem;
+    }
+    .social-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.85rem; color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .social-link:hover { color: var(--copper-lt); }
+    .social-link-icon {
+      width: 36px; height: 36px; background: rgba(200,121,65,0.1);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      color: var(--copper); flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .social-link:hover .social-link-icon { background: rgba(200,121,65,0.25); }
+
+    @media (max-width: 800px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #111c26;
+      padding: 3rem clamp(1.5rem, 5vw, 4rem);
+      border-top: 1px solid rgba(200,121,65,0.2);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: var(--serif); font-weight: 800; font-size: 1.1rem;
+      color: var(--white); text-decoration: none;
+    }
+    .footer-logo span { color: var(--copper); }
+    .footer-links {
+      display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.82rem; color: rgba(255,255,255,0.4);
+      text-decoration: none; letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--copper-lt); }
+    .footer-copy {
+      font-size: 0.78rem; color: rgba(255,255,255,0.25);
+      width: 100%; text-align: center; padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ─── UTILS ─── */
+    @media (max-width: 420px) {
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Asennus<span>Seppä</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Palvelut</a></li>
+    <li><a href="#referenssit">Referenssit</a></li>
+    <li><a href="#yritys">Yritys</a></li>
+    <li><a href="#yhteystiedot" class="nav-cta">Ota yhteyttä</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Valikko">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services"     onclick="closeMenu()">Palvelut</a>
+  <a href="#referenssit"  onclick="closeMenu()">Referenssit</a>
+  <a href="#yritys"       onclick="closeMenu()">Yritys</a>
+  <a href="#yhteystiedot" onclick="closeMenu()">Ota yhteyttä</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Lämpöpumput · Forssa & ympäristö</div>
+    <h1 class="hero-title">Luotettava<br><em>lämpöpumppukumppani</em></h1>
+    <p class="hero-sub">Myynti, asennus ja huolto – Mitsubishi Electric, Gree, Toshiba ja Wilfa. Palvelemme Forssassa ja lähikunnissa.</p>
+    <div class="hero-actions">
+      <a href="#yhteystiedot" class="btn-primary">
+        Pyydä tarjous
+        <i data-lucide="arrow-right" width="16" height="16"></i>
+      </a>
+      <a href="#services" class="btn-ghost">
+        Tutustu palveluihin
+        <i data-lucide="chevron-down" width="16" height="16"></i>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Vieritä</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-target="15">0</div>
+      <div class="stat-label">Vuotta kokemusta</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number" data-target="500">0</div>
+      <div class="stat-label">Tyytyväistä asiakasta</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Edustettua merkkiä</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Laatu taattu</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="heading-line"></span>
+      <h2 class="section-heading">Palvelut</h2>
+      <p class="section-sub">Lämpöpumput ovat erikoisosaamisemme – tarjoamme myös käteviä lisäpalveluita kodin ja mökin tarpeisiin.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <i data-lucide="thermometer-sun" width="22" height="22"></i>
+        </div>
+        <h3>Lämpöpumput – asennus & myynti</h3>
+        <p>Ilma-ilmalämpöpumput (ILP) sekä tarvittaessa vesi-ilmalämpöpumput (VILP) – myynti, asennus ja käyttöönotto ammattitaidolla.</p>
+        <ul class="service-list">
+          <li>Ilma-ilmalämpöpumpun asennus</li>
+          <li>Vesi-ilmalämpöpumpun asennus</li>
+          <li>Laitemyynti kotiin toimitettuna</li>
+        </ul>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <i data-lucide="settings" width="22" height="22"></i>
+        </div>
+        <h3>Huolto & tarvikemyynti</h3>
+        <p>Pidetään lämpöpumppusi kunnossa vuodesta toiseen. Myymme myös varaosia ja tarvikkeita suoraan asiakkaalle.</p>
+        <ul class="service-list">
+          <li>Vuosihuolto ja puhdistus</li>
+          <li>Vianmääritys ja korjaus</li>
+          <li>Tarvike- ja varaosatoimitukset</li>
+        </ul>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">
+          <i data-lucide="hammer" width="22" height="22"></i>
+        </div>
+        <h3>Lisäpalvelut</h3>
+        <p>Kodin ja mökin pienet remonttityöt sekä ulkopintojen huoltomaalaukset – yksi luotettava tekijä moneen tarpeeseen.</p>
+        <ul class="service-list">
+          <li>Remonttiapu</li>
+          <li>Huoltomaalaukset</li>
+          <li>Mökkitalkkari</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="brands-row reveal">
+      <span class="brands-label">Edustamamme merkit</span>
+      <div class="brands-list">
+        <span>Mitsubishi Electric</span>
+        <span>Gree</span>
+        <span>Toshiba</span>
+        <span>Wilfa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REFERENSSIT -->
+<section id="referenssit">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="heading-line"></span>
+      <h2 class="section-heading">Referenssit</h2>
+      <p class="section-sub">Esimerkkejä toteutuneista projekteistamme – laadulla ja huolella tehtyä työtä.</p>
+    </div>
+    <div class="ref-grid">
+      <div class="ref-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=80&auto=format&fit=crop" alt="Lämpöpumpun asennus" loading="lazy" />
+        <div class="ref-overlay">
+          <span class="ref-category">Asennus</span>
+          <div class="ref-title">Ilma-ilmalämpöpumppu, omakotitalo</div>
+          <p class="ref-caption">Mitsubishi Electric -järjestelmä asennettuna ja käyttövalmiina.</p>
+        </div>
+      </div>
+      <div class="ref-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80&auto=format&fit=crop" alt="Huoltotyö" loading="lazy" />
+        <div class="ref-overlay">
+          <span class="ref-category">Huolto</span>
+          <div class="ref-title">Vuosihuolto, rivitaloyhtiö</div>
+          <p class="ref-caption">Useamman yksikön vuosihuolto ja suodattimien vaihto.</p>
+        </div>
+      </div>
+      <div class="ref-card reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop" alt="Asennus" loading="lazy" />
+        <div class="ref-overlay">
+          <span class="ref-category">Asennus</span>
+          <div class="ref-title">Gree-järjestelmä, kesämökki</div>
+          <p class="ref-caption">Kompakti ja tehokas ratkaisu mökin lämmitykseen.</p>
+        </div>
+      </div>
+      <div class="ref-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=800&q=80&auto=format&fit=crop" alt="Remonttiapu" loading="lazy" />
+        <div class="ref-overlay">
+          <span class="ref-category">Lisäpalvelut</span>
+          <div class="ref-title">Remonttiapu, omakotitalo</div>
+          <p class="ref-caption">Pienet sisäremontit nopeasti ja siististi tehtynä.</p>
+        </div>
+      </div>
+      <div class="ref-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format&fit=crop" alt="Huoltomaalaus" loading="lazy" />
+        <div class="ref-overlay">
+          <span class="ref-category">Lisäpalvelut</span>
+          <div class="ref-title">Huoltomaalaus, ulkovuoraus</div>
+          <p class="ref-caption">Ulkopintojen huoltomaalaus ennen talvea.</p>
+        </div>
+      </div>
+      <div class="ref-card reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop" alt="Lämpöpumppu asennus" loading="lazy" />
+        <div class="ref-overlay">
+          <span class="ref-category">Asennus</span>
+          <div class="ref-title">Toshiba-lämpöpumppu, toimisto</div>
+          <p class="ref-caption">Hiljainen ja energiatehokas ratkaisu toimistotiloihin.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- YRITYS -->
+<section id="yritys">
+  <div class="section-inner">
+    <div class="yritys-inner">
+      <div class="yritys-text reveal">
+        <span class="heading-line"></span>
+        <h2 class="section-heading">Yritys</h2>
+        <p>AsennusSeppä on forssilainen yritys, jonka sydän on lämpöpumpuissa. Autamme asiakkaita valitsemaan, asentamaan ja pitämään kunnossa oikean järjestelmän – Mitsubishi Electric, Gree, Toshiba tai Wilfa.</p>
+        <p>Pääpalvelumme on ilma-ilmalämpöpumppujen (ILP) myynti ja asennus. Tarvittaessa vastataan myös vesi-ilmalämpöpumppujen (VILP) tarpeisiin. Lisäksi teemme remonttiaputöitä, huoltomaalauksia ja mökkitalkkaritöitä.</p>
+        <ul class="yritys-values">
+          <li>Lämpöpumput ovat erikoisosaamisemme</li>
+          <li>Toimimme Forssassa ja lähikunnissa</li>
+          <li>Nopea ja luotettava palvelu jokaisessa tilanteessa</li>
+          <li>Selkeä hinnoittelu ilman yllätyksiä</li>
+          <li>Takuu kaikille töille</li>
+        </ul>
+      </div>
+      <div class="yritys-img reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80&auto=format&fit=crop" alt="AsennusSeppä" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="opacity:0.15;"></div>
+
+<!-- YHTEYSTIEDOT -->
+<section id="yhteystiedot">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="heading-line"></span>
+      <h2 class="section-heading">Ota <span>yhteyttä</span></h2>
+      <p class="section-sub">Jätä meille viesti tai soita – vastaamme nopeasti.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <form class="contact-form reveal reveal-delay-1" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nimi</label>
+              <input type="text" placeholder="Etunimi Sukunimi" required />
+            </div>
+            <div class="form-group">
+              <label>Sähköposti</label>
+              <input type="email" placeholder="nimi@esimerkki.fi" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Puhelinnumero</label>
+            <input type="tel" placeholder="050 000 0000" />
+          </div>
+          <div class="form-group">
+            <label>Viesti</label>
+            <textarea placeholder="Kerro tarpeistasi…" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">
+            Lähetä viesti
+            <i data-lucide="send" width="16" height="16"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <i data-lucide="phone" width="17" height="17"></i>
+            </div>
+            <div class="contact-info-text">
+              <strong>Puhelin</strong>
+              <a href="tel:0505464331">050 546 4331</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <i data-lucide="mail" width="17" height="17"></i>
+            </div>
+            <div class="contact-info-text">
+              <strong>Sähköposti</strong>
+              <a href="mailto:asennusseppa@gmail.com">asennusseppa@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <i data-lucide="map-pin" width="17" height="17"></i>
+            </div>
+            <div class="contact-info-text">
+              <strong>Palvelualue</strong>
+              Forssa ja lähikunnat
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <i data-lucide="building-2" width="17" height="17"></i>
+            </div>
+            <div class="contact-info-text">
+              <strong>Y-tunnus</strong>
+              3163170-2
+            </div>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://www.facebook.com/profile.php?id=100083235516892" target="_blank" rel="noopener" class="social-link">
+            <div class="social-link-icon">
+              <i data-lucide="facebook" width="17" height="17"></i>
+            </div>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/asennusseppa/" target="_blank" rel="noopener" class="social-link">
+            <div class="social-link-icon">
+              <i data-lucide="instagram" width="17" height="17"></i>
+            </div>
+            Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">Asennus<span>Seppä</span></a>
+    <ul class="footer-links">
+      <li><a href="#services">Palvelut</a></li>
+      <li><a href="#referenssit">Referenssit</a></li>
+      <li><a href="#yritys">Yritys</a></li>
+      <li><a href="#yhteystiedot">Yhteystiedot</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 AsennusSeppä – Y-tunnus 3163170-2 · Forssa</p>
+  </div>
+</footer>
+
+<script>
+  // Init Lucide icons
+  lucide.createIcons();
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Hamburger
+  const ham = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  function closeMenu() {
+    ham.classList.remove('open');
+    menu.classList.remove('open');
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => revealObs.observe(el));
+
+  // Counter animation
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    if (!target) return;
+    const suffix = '+';
+    const duration = 1400;
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + (progress >= 1 ? suffix : '');
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Lähetetty ✓';
+    btn.style.background = '#2e7d32';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = 'Lähetä viesti <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+      btn.style.background = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>
