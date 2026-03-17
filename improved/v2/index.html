@@ -370,7 +370,7 @@
     @media (max-width: 800px) {
       .services-grid { grid-template-columns: 1fr; }
     }
-    @media (min-width: 500px) and (max-width: 800px) {
+    @media (min-width: 540px) and (max-width: 800px) {
       .services-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -393,6 +393,8 @@
     @media (max-width: 800px) {
       .insta-grid { grid-template-columns: 1fr; max-width: 540px; }
     }
+    /* contain instagram's 326px min-width on very narrow screens */
+    #referenssit { overflow-x: hidden; }
 
     /* ─── YRITYS ─── */
     #yritys { background: var(--sand); }
@@ -560,6 +562,28 @@
     @media (max-width: 420px) {
       .hero-actions { flex-direction: column; }
       .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+    }
+
+    /* ─── 320px FIXES ─── */
+    @media (max-width: 380px) {
+      /* hero tag: prevent overflow on narrow screens */
+      .hero-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.07em;
+        flex-wrap: wrap;
+      }
+      .hero-tag::before { display: none; }
+
+      /* stats: reduce inner padding in single-column layout */
+      .stat-item { padding: 1.8rem 1rem; }
+
+      /* brands: tighten gap and allow label to wrap */
+      .brands-row { gap: 1rem; }
+      .brands-label { white-space: normal; }
+      .brands-list { gap: 1rem; }
+
+      /* contact: reduce gap */
+      .contact-grid { gap: 2rem; }
     }
   </style>
 </head>
