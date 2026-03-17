@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AsennusSeppä – Luotettava LVI-kumppani</title>
+  <title>AsennusSeppä – Lämpöpumput, Asennus & Huolto | Forssa</title>
+  <meta name="description" content="AsennusSeppä – lämpöpumppujen asennus, myynti ja huolto Forssan seudulla. Edustamme Mitsubishi Electric, Gree, Toshiba ja Wilfa -merkkejä. Pyydä tarjous!">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
@@ -129,7 +130,6 @@
       position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(28,43,58,0.92) 0%, rgba(28,43,58,0.75) 60%, rgba(44,62,80,0.6) 100%);
     }
-    /* geometric diagonal lines SVG overlay */
     .hero-pattern {
       position: absolute; inset: 0; opacity: 0.07;
       background-image: repeating-linear-gradient(
@@ -298,7 +298,7 @@
     /* ─── SERVICES ─── */
     #services { background: var(--sand); }
     .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem; margin-top: 3.5rem;
     }
     .service-card {
@@ -314,6 +314,17 @@
       transform: translateY(-6px);
       box-shadow: 0 16px 40px rgba(28,43,58,0.12);
     }
+    .service-card.featured {
+      grid-column: span 2;
+      border-top-color: rgba(200,121,65,0.3);
+      background: linear-gradient(135deg, var(--white) 0%, rgba(200,121,65,0.04) 100%);
+    }
+    .service-card.featured:hover { border-top-color: var(--copper); }
+    .service-card.featured .service-content {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .service-card.featured h3 { grid-column: span 2; }
+    .service-card.featured .service-icon { grid-column: span 2; }
     .service-icon {
       width: 48px; height: 48px;
       background: rgba(200,121,65,0.1); border-radius: 8px;
@@ -332,6 +343,15 @@
     .service-card p {
       font-size: 0.92rem; color: var(--muted); line-height: 1.8;
     }
+    .service-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem;
+    }
+    .service-tag {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
+      padding: 0.3rem 0.75rem; border-radius: 20px;
+      background: rgba(200,121,65,0.1); color: var(--copper);
+      border: 1px solid rgba(200,121,65,0.2);
+    }
     .service-link {
       display: inline-flex; align-items: center; gap: 0.4rem;
       margin-top: 1.5rem; font-size: 0.85rem; font-weight: 600;
@@ -340,11 +360,42 @@
     }
     .service-link:hover { gap: 0.7rem; }
 
-    @media (max-width: 800px) {
+    @media (max-width: 700px) {
       .services-grid { grid-template-columns: 1fr; }
+      .service-card.featured { grid-column: span 1; }
+      .service-card.featured .service-content { grid-template-columns: 1fr; }
+      .service-card.featured h3 { grid-column: span 1; }
+      .service-card.featured .service-icon { grid-column: span 1; }
     }
-    @media (min-width: 500px) and (max-width: 800px) {
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* ─── BRANDS ─── */
+    #merkit {
+      background: var(--ink);
+      padding: 3.5rem clamp(1.5rem, 5vw, 4rem);
+    }
+    .brands-label {
+      text-align: center; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 2.5rem;
+    }
+    .brands-grid {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: center; gap: 1rem;
+      max-width: 900px; margin: 0 auto;
+    }
+    .brand-badge {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 1rem 2rem;
+      font-family: var(--serif); font-weight: 700; font-size: 1rem;
+      color: rgba(255,255,255,0.75); letter-spacing: 0.02em;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+      white-space: nowrap;
+    }
+    .brand-badge:hover {
+      background: rgba(200,121,65,0.12);
+      border-color: rgba(200,121,65,0.4);
+      color: var(--copper-lt);
     }
 
     /* ─── REFERENSSIT ─── */
@@ -442,6 +493,13 @@
       transform: translate(12px, 12px);
       z-index: -1;
     }
+    .tukes-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      margin-top: 1.8rem; padding: 0.65rem 1.1rem;
+      background: rgba(200,121,65,0.08); border: 1px solid rgba(200,121,65,0.25);
+      border-radius: 4px; font-size: 0.8rem; font-weight: 600;
+      color: var(--copper); letter-spacing: 0.02em;
+    }
 
     @media (max-width: 800px) {
       .yritys-inner { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -486,7 +544,7 @@
       align-self: flex-start; margin-top: 0.5rem;
     }
     .contact-info {
-      margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem;
+      margin-top: 0; display: flex; flex-direction: column; gap: 1rem;
     }
     .contact-info-item {
       display: flex; align-items: flex-start; gap: 1rem;
@@ -507,15 +565,54 @@
       transition: color 0.2s;
     }
     .contact-info-text a:hover { color: var(--copper-lt); }
-    .map-wrapper {
-      border-radius: 6px; overflow: hidden;
+
+    .contact-side { display: flex; flex-direction: column; gap: 2rem; }
+
+    .service-area-card {
+      background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
-      height: 100%; min-height: 380px;
+      border-radius: 6px; padding: 1.8rem;
     }
-    .map-wrapper iframe {
-      width: 100%; height: 100%; border: 0; min-height: 380px;
-      filter: grayscale(0.3) brightness(0.85);
+    .service-area-card h3 {
+      font-family: var(--serif); font-size: 1rem; font-weight: 700;
+      color: var(--white); margin-bottom: 0.8rem; letter-spacing: -0.01em;
     }
+    .service-area-card p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7;
+    }
+    .service-area-card .area-name {
+      font-size: 1.15rem; font-weight: 700; color: var(--copper-lt);
+      margin-bottom: 0.4rem; display: block;
+    }
+
+    .social-links {
+      display: flex; gap: 0.8rem;
+    }
+    .social-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.75rem 1.2rem; border-radius: 6px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.65); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      flex: 1; justify-content: center;
+    }
+    .social-link:hover {
+      background: rgba(200,121,65,0.12);
+      border-color: rgba(200,121,65,0.3);
+      color: var(--copper-lt);
+    }
+
+    .tukes-info {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.2rem;
+      background: rgba(200,121,65,0.08);
+      border: 1px solid rgba(200,121,65,0.2);
+      border-radius: 6px;
+      font-size: 0.82rem; color: rgba(255,255,255,0.55);
+    }
+    .tukes-info strong { color: var(--copper); display: block; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.1rem; }
 
     @media (max-width: 800px) {
       .contact-grid { grid-template-columns: 1fr; }
@@ -530,8 +627,12 @@
     }
     .footer-inner {
       max-width: 1100px; margin: 0 auto;
+    }
+    .footer-top {
       display: flex; flex-wrap: wrap; align-items: center;
       justify-content: space-between; gap: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .footer-logo {
       font-family: var(--serif); font-weight: 800; font-size: 1.1rem;
@@ -548,16 +649,29 @@
       transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--copper-lt); }
-    .footer-copy {
+    .footer-social {
+      display: flex; gap: 0.8rem;
+    }
+    .footer-social a {
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.06); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4); text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-social a:hover { background: var(--copper); color: var(--white); }
+    .footer-bottom {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 1rem;
+      padding-top: 1.5rem;
       font-size: 0.78rem; color: rgba(255,255,255,0.25);
-      width: 100%; text-align: center; padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
     /* ─── UTILS ─── */
     @media (max-width: 420px) {
       .hero-actions { flex-direction: column; }
       .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+      .social-links { flex-direction: column; }
     }
   </style>
 </head>
@@ -589,9 +703,9 @@
   <div class="hero-overlay"></div>
   <div class="hero-pattern"></div>
   <div class="hero-content">
-    <div class="hero-tag">LVI-palvelut · Forssa & ympäristö</div>
-    <h1 class="hero-title">Luotettava<br><em>LVI-kumppani</em></h1>
-    <p class="hero-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Totam rem aperiam.</p>
+    <div class="hero-tag">Lämpöpumput · Forssa &amp; Kanta-Häme</div>
+    <h1 class="hero-title">Lämpöpumppu<br><em>ammattitaidolla</em></h1>
+    <p class="hero-sub">Asennus, myynti ja huolto – luotettavasti Forssan seudulla. Edustamme Mitsubishi Electric-, Gree-, Toshiba- ja Wilfa-merkkejä.</p>
     <div class="hero-actions">
       <a href="#yhteystiedot" class="btn-primary">
         Pyydä tarjous
@@ -613,20 +727,20 @@
 <section id="stats">
   <div class="stats-grid">
     <div class="stat-item reveal">
-      <div class="stat-number" data-target="15">0</div>
-      <div class="stat-label">Vuotta kokemusta</div>
+      <div class="stat-number" data-target="4">0</div>
+      <div class="stat-label">Edustettua merkkiä</div>
     </div>
     <div class="stat-item reveal reveal-delay-1">
       <div class="stat-number" data-target="500">0</div>
       <div class="stat-label">Tyytyväistä asiakasta</div>
     </div>
     <div class="stat-item reveal reveal-delay-2">
-      <div class="stat-number">24h</div>
-      <div class="stat-label">Palvelu</div>
+      <div class="stat-number">Tukes</div>
+      <div class="stat-label">Luvat kunnossa</div>
     </div>
     <div class="stat-item reveal reveal-delay-3">
       <div class="stat-number">100%</div>
-      <div class="stat-label">Laatu taattu</div>
+      <div class="stat-label">Takuu töille</div>
     </div>
   </div>
 </section>
@@ -639,40 +753,87 @@
     <div class="reveal">
       <span class="heading-line"></span>
       <h2 class="section-heading">Palvelut</h2>
-      <p class="section-sub">Tarjoamme kattavat LVI-palvelut kotitalouksille ja yrityksille – aina luotettavasti ja ammattitaidolla.</p>
+      <p class="section-sub">Lämpöpumput ovat ydinosaamisemme – myyntiä, asennusta, huoltoa ja tarvikkeita Forssan seudulla.</p>
     </div>
     <div class="services-grid">
+
       <div class="service-card reveal reveal-delay-1">
         <div class="service-icon">
           <i data-lucide="wrench" width="22" height="22"></i>
         </div>
-        <h3>Asennus</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor.</p>
+        <h3>Lämpöpumppujen asennus</h3>
+        <p>Ammattitaitoinen asennus koteihin, mökeille ja yrityksiin. Hoidamme kaiken suunnittelusta käyttöönottoon – Tukes-lupien mukaisesti.</p>
+        <div class="service-tags">
+          <span class="service-tag">Ilma/ilma</span>
+          <span class="service-tag">Ilma/vesi</span>
+          <span class="service-tag">Tukes-lupa</span>
+        </div>
         <a href="#yhteystiedot" class="service-link">
-          Lue lisää <i data-lucide="arrow-right" width="14" height="14"></i>
+          Kysy lisää <i data-lucide="arrow-right" width="14" height="14"></i>
         </a>
       </div>
+
       <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <i data-lucide="tag" width="22" height="22"></i>
+        </div>
+        <h3>Lämpöpumppujen myynti</h3>
+        <p>Myymme tunnettuja ja laadukkaita merkkejä. Autamme valitsemaan juuri oikean laitteen kohteeseen ja budjettiin sopivaksi.</p>
+        <div class="service-tags">
+          <span class="service-tag">Mitsubishi Electric</span>
+          <span class="service-tag">Gree</span>
+          <span class="service-tag">Toshiba</span>
+          <span class="service-tag">Wilfa</span>
+        </div>
+        <a href="#yhteystiedot" class="service-link">
+          Kysy hintoja <i data-lucide="arrow-right" width="14" height="14"></i>
+        </a>
+      </div>
+
+      <div class="service-card reveal reveal-delay-3">
         <div class="service-icon">
           <i data-lucide="settings" width="22" height="22"></i>
         </div>
-        <h3>Huolto</h3>
-        <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas sed diam eget.</p>
-        <a href="#yhteystiedot" class="service-link">
-          Lue lisää <i data-lucide="arrow-right" width="14" height="14"></i>
-        </a>
-      </div>
-      <div class="service-card reveal reveal-delay-3">
-        <div class="service-icon">
-          <i data-lucide="droplets" width="22" height="22"></i>
+        <h3>Huolto &amp; kunnossapito</h3>
+        <p>Säännöllinen huolto pitää laitteen tehokkaana ja pitkäikäisenä. Huollamme kaikkien merkkien lämpöpumppuja – myös vanhat laitteet.</p>
+        <div class="service-tags">
+          <span class="service-tag">Vuosihuolto</span>
+          <span class="service-tag">Tarvikemyynti</span>
+          <span class="service-tag">Kaikki merkit</span>
         </div>
-        <h3>LVI-työt</h3>
-        <p>Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum.</p>
         <a href="#yhteystiedot" class="service-link">
-          Lue lisää <i data-lucide="arrow-right" width="14" height="14"></i>
+          Varaa huolto <i data-lucide="arrow-right" width="14" height="14"></i>
         </a>
       </div>
+
+      <div class="service-card reveal reveal-delay-4">
+        <div class="service-icon">
+          <i data-lucide="hammer" width="22" height="22"></i>
+        </div>
+        <h3>Lisäpalvelut</h3>
+        <p>Lämpöpumppujen ohella autamme myös erilaisissa remontti- ja huoltotöissä: pienremontti, huoltomaalaus, mökkitalkkari ja pienet käytännön askareet.</p>
+        <div class="service-tags">
+          <span class="service-tag">Remonttiapu</span>
+          <span class="service-tag">Huoltomaalaus</span>
+          <span class="service-tag">Mökkitalkkari</span>
+        </div>
+        <a href="#yhteystiedot" class="service-link">
+          Kysy lisää <i data-lucide="arrow-right" width="14" height="14"></i>
+        </a>
+      </div>
+
     </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="merkit">
+  <p class="brands-label">Edustamamme lämpöpumppumerkit</p>
+  <div class="brands-grid">
+    <div class="brand-badge">Mitsubishi Electric</div>
+    <div class="brand-badge">Gree</div>
+    <div class="brand-badge">Toshiba</div>
+    <div class="brand-badge">Wilfa</div>
   </div>
 </section>
 
@@ -684,55 +845,55 @@
     <div class="reveal">
       <span class="heading-line"></span>
       <h2 class="section-heading">Referenssit</h2>
-      <p class="section-sub">Esimerkkejä toteutuneista projekteistamme – laadulla ja huolella tehtyä työtä.</p>
+      <p class="section-sub">Esimerkkejä tekemistämme töistä – laadulla ja huolella hoidettua.</p>
     </div>
     <div class="ref-grid">
       <div class="ref-card reveal reveal-delay-1">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80&auto=format&fit=crop" alt="Putkistorenovointi" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80&auto=format&fit=crop" alt="Lämpöpumppuasennus" loading="lazy" />
         <div class="ref-overlay">
           <span class="ref-category">Asennus</span>
-          <div class="ref-title">Putkistorenovointi, omakotitalo</div>
-          <p class="ref-caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis.</p>
+          <div class="ref-title">Ilmalämpöpumpun asennus, omakotitalo</div>
+          <p class="ref-caption">Mitsubishi Electric -sisäyksikkö ja ulkoyksikkö asennettuna ammattitaidolla.</p>
         </div>
       </div>
       <div class="ref-card reveal reveal-delay-2">
-        <img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=800&q=80&auto=format&fit=crop" alt="LVI-huolto" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop" alt="Ulkoyksikön asennus" loading="lazy" />
         <div class="ref-overlay">
-          <span class="ref-category">Huolto</span>
-          <div class="ref-title">Vuosihuolto, kerrostalo</div>
-          <p class="ref-caption">Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+          <span class="ref-category">Asennus</span>
+          <div class="ref-title">Ulkoyksikön asennus</div>
+          <p class="ref-caption">Huolellinen kiinnitys ja reititys kaikissa sääolosuhteissa.</p>
         </div>
       </div>
       <div class="ref-card reveal reveal-delay-3">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format&fit=crop" alt="Kylpyhuonerenovointi" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format&fit=crop" alt="Asennustyö" loading="lazy" />
         <div class="ref-overlay">
-          <span class="ref-category">LVI-työt</span>
-          <div class="ref-title">Kylpyhuonerenovointi</div>
-          <p class="ref-caption">Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</p>
+          <span class="ref-category">Asennus</span>
+          <div class="ref-title">Asennustyö, rivitalo</div>
+          <p class="ref-caption">Useamman asunnon lämpöpumppuasennukset samalla kertaa.</p>
         </div>
       </div>
       <div class="ref-card reveal reveal-delay-1">
-        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80&auto=format&fit=crop" alt="Lämmitysjärjestelmä" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=800&q=80&auto=format&fit=crop" alt="Huoltotyö" loading="lazy" />
         <div class="ref-overlay">
-          <span class="ref-category">Asennus</span>
-          <div class="ref-title">Lämmitysjärjestelmä, toimisto</div>
-          <p class="ref-caption">Donec ullamcorper nulla non metus auctor fringilla.</p>
+          <span class="ref-category">Huolto</span>
+          <div class="ref-title">Vuosihuolto &amp; puhdistus</div>
+          <p class="ref-caption">Säännöllinen huolto pitää laitteen huippukunnossa ja energiatehokkaana.</p>
         </div>
       </div>
       <div class="ref-card reveal reveal-delay-2">
-        <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop" alt="Vesijohtotyöt" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop" alt="Mökkiasennus" loading="lazy" />
         <div class="ref-overlay">
-          <span class="ref-category">Huolto</span>
-          <div class="ref-title">Vesijohtotyöt, rivitalo</div>
-          <p class="ref-caption">Cum sociis natoque penatibus et magnis dis parturient.</p>
+          <span class="ref-category">Mökkitalkkari</span>
+          <div class="ref-title">Lämpöpumppu kesämökille</div>
+          <p class="ref-caption">Mökki pysyy lämpimänä myös sesongin ulkopuolella.</p>
         </div>
       </div>
       <div class="ref-card reveal reveal-delay-3">
-        <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=80&auto=format&fit=crop" alt="Ilmastointihuolto" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=80&auto=format&fit=crop" alt="Remonttiapu" loading="lazy" />
         <div class="ref-overlay">
-          <span class="ref-category">LVI-työt</span>
-          <div class="ref-title">Ilmastointihuolto, teollisuus</div>
-          <p class="ref-caption">Fusce dapibus, tellus ac cursus commodo, tortor mauris.</p>
+          <span class="ref-category">Lisäpalvelut</span>
+          <div class="ref-title">Remonttiapu &amp; huoltomaalaus</div>
+          <p class="ref-caption">Pienremontteja ja huoltomaalauksia tarpeen mukaan.</p>
         </div>
       </div>
     </div>
@@ -748,18 +909,23 @@
       <div class="yritys-text reveal">
         <span class="heading-line"></span>
         <h2 class="section-heading">Yritys</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
-        <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa.</p>
+        <p>AsennusSeppä on Jarno Seppän pyörittämä yritys Forssasta, joka on erikoistunut lämpöpumppujen asennukseen, myyntiin ja huoltoon Kanta-Hämeen alueella.</p>
+        <p>Edustamamme merkit – Mitsubishi Electric, Gree, Toshiba ja Wilfa – kattavat laajan valikoiman laadukkaita lämpöpumppuratkaisuja niin koteihin, mökeille kuin yrityksiinkin. Puhutaan lämpöpumpuista kokonaisuutena: löytyy ratkaisu ilma/ilma-laitteista vesikiertoisiin järjestelmiin asti.</p>
+        <p>Lisäksi tarjoamme remonttiapu-, mökkitalkkari- ja huoltomaalauspalveluja – kaikki kätevästi samalta tekijältä.</p>
         <ul class="yritys-values">
-          <li>Ammattitaito ja kokemus yli 15 vuoden ajalta</li>
-          <li>Nopea ja luotettava palvelu jokaisessa tilanteessa</li>
-          <li>Ympäristöystävälliset työmenetelmät</li>
-          <li>Selkeä hinnoittelu ilman yllätyksiä</li>
-          <li>Takuu kaikille töille</li>
+          <li>Tukes-luvat kunnossa – sähkötyöt tehdään aina luvallisesti</li>
+          <li>Edustamme tunnettuja ja luotettavia lämpöpumppumerkkejä</li>
+          <li>Nopea ja joustava palvelu Forssan seudulla</li>
+          <li>Selkeä hinnoittelu – ei piilokustannuksia</li>
+          <li>Takuu asennetuille laitteille ja töille</li>
         </ul>
+        <div class="tukes-badge">
+          <i data-lucide="shield-check" width="16" height="16"></i>
+          Tukes-lupa Nr. 2468/11.01/2021
+        </div>
       </div>
       <div class="yritys-img reveal reveal-delay-2">
-        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80&auto=format&fit=crop" alt="AsennusSeppä tiimi" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80&auto=format&fit=crop" alt="AsennusSeppä" loading="lazy" />
       </div>
     </div>
   </div>
@@ -773,7 +939,7 @@
     <div class="reveal">
       <span class="heading-line"></span>
       <h2 class="section-heading">Ota <span>yhteyttä</span></h2>
-      <p class="section-sub">Jätä meille viesti tai soita – vastaamme nopeasti.</p>
+      <p class="section-sub">Jätä viesti tai soita suoraan – vastaamme nopeasti.</p>
     </div>
     <div class="contact-grid">
       <div>
@@ -794,22 +960,24 @@
           </div>
           <div class="form-group">
             <label>Viesti</label>
-            <textarea placeholder="Kerro tarpeistasi…" required></textarea>
+            <textarea placeholder="Kerro tarpeistasi – esim. minkälainen kohde ja mitä palvelua tarvitset…" required></textarea>
           </div>
           <button type="submit" class="btn-primary">
             Lähetä viesti
             <i data-lucide="send" width="16" height="16"></i>
           </button>
         </form>
+      </div>
 
-        <div class="contact-info reveal reveal-delay-2">
+      <div class="contact-side reveal reveal-delay-2">
+        <div class="contact-info">
           <div class="contact-info-item">
             <div class="contact-info-icon">
               <i data-lucide="phone" width="17" height="17"></i>
             </div>
             <div class="contact-info-text">
               <strong>Puhelin</strong>
-              <a href="tel:0505464331">050 546 4331</a>
+              <a href="tel:+358505464331">050 546 4331</a>
             </div>
           </div>
           <div class="contact-info-item">
@@ -818,7 +986,7 @@
             </div>
             <div class="contact-info-text">
               <strong>Sähköposti</strong>
-              <a href="mailto:jarno.seppa@gmail.com">jarno.seppa@gmail.com</a>
+              <a href="mailto:asennusseppa@gmail.com">asennusseppa@gmail.com</a>
             </div>
           </div>
           <div class="contact-info-item">
@@ -826,8 +994,8 @@
               <i data-lucide="map-pin" width="17" height="17"></i>
             </div>
             <div class="contact-info-text">
-              <strong>Osoite</strong>
-              Turuntie 23 A 11, 30100 Forssa
+              <strong>Palvelualue</strong>
+              Forssa &amp; Kanta-Häme
             </div>
           </div>
           <div class="contact-info-item">
@@ -840,16 +1008,25 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="map-wrapper reveal reveal-delay-3">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1949.2!2d23.621!3d60.818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468e6b2b0b8b0b0b%3A0x0!2sTuruntie+23%2C+30100+Forssa%2C+Finland!5e0!3m2!1sfi!2sfi!4v1000000000000!5m2!1sfi!2sfi"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="AsennusSeppä sijainti"
-        ></iframe>
+        <div class="social-links">
+          <a href="https://www.facebook.com/profile.php?id=100083235516892" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i data-lucide="facebook" width="17" height="17"></i>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/asennusseppa/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i data-lucide="instagram" width="17" height="17"></i>
+            Instagram
+          </a>
+        </div>
+
+        <div class="tukes-info">
+          <i data-lucide="shield-check" width="20" height="20" style="color:var(--copper);flex-shrink:0;"></i>
+          <div>
+            <strong>Tukes-lupa</strong>
+            Nr. 2468/11.01/2021 – sähkötyöt tehdään aina luvallisesti
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -858,28 +1035,38 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <a href="#" class="footer-logo">Asennus<span>Seppä</span></a>
-    <ul class="footer-links">
-      <li><a href="#services">Palvelut</a></li>
-      <li><a href="#referenssit">Referenssit</a></li>
-      <li><a href="#yritys">Yritys</a></li>
-      <li><a href="#yhteystiedot">Yhteystiedot</a></li>
-    </ul>
-    <p class="footer-copy">© 2025 AsennusSeppä – Y-tunnus 3163170-2 · Turuntie 23 A 11, 30100 Forssa</p>
+    <div class="footer-top">
+      <a href="#" class="footer-logo">Asennus<span>Seppä</span></a>
+      <ul class="footer-links">
+        <li><a href="#services">Palvelut</a></li>
+        <li><a href="#referenssit">Referenssit</a></li>
+        <li><a href="#yritys">Yritys</a></li>
+        <li><a href="#yhteystiedot">Yhteystiedot</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/profile.php?id=100083235516892" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <i data-lucide="facebook" width="16" height="16"></i>
+        </a>
+        <a href="https://www.instagram.com/asennusseppa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <i data-lucide="instagram" width="16" height="16"></i>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 AsennusSeppä · Y-tunnus 3163170-2 · Forssa</span>
+      <span>Tukes-lupa Nr. 2468/11.01/2021</span>
+    </div>
   </div>
 </footer>
 
 <script>
-  // Init Lucide icons
   lucide.createIcons();
 
-  // Navbar scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // Hamburger
   const ham = document.getElementById('hamburger');
   const menu = document.getElementById('mobileMenu');
   ham.addEventListener('click', () => {
@@ -891,7 +1078,6 @@
     menu.classList.remove('open');
   }
 
-  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -903,11 +1089,10 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => revealObs.observe(el));
 
-  // Counter animation
   function animateCounter(el) {
     const target = parseInt(el.dataset.target, 10);
     if (!target) return;
-    const suffix = target >= 500 ? '+' : '+';
+    const suffix = target >= 500 ? '+' : '';
     const duration = 1400;
     const start = performance.now();
     const update = (now) => {
@@ -930,7 +1115,6 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
 
-  // Form submit
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
