@@ -124,6 +124,7 @@
       position: absolute; inset: 0;
       background-image: url('/v2/hero.png');
       background-size: cover; background-position: center center;
+      will-change: transform;
     }
     .hero-overlay {
       position: absolute; inset: 0;
@@ -846,6 +847,13 @@
 <script>
   // Init Lucide icons
   lucide.createIcons();
+
+  // Hero parallax
+  const heroBg = document.querySelector('.hero-bg');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    heroBg.style.transform = `translateY(${y * 0.35}px)`;
+  }, { passive: true });
 
   // Navbar scroll
   const navbar = document.getElementById('navbar');
