@@ -27,7 +27,7 @@
       --ease:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: var(--body);
@@ -382,18 +382,21 @@
       gap: 1.5rem;
       margin-top: 3.5rem;
       align-items: start;
+      overflow-x: hidden;
+      max-width: 100%;
     }
+    /* Instagram's embed.js sets inline min-width:326px — clip it at the grid level */
     .insta-grid .instagram-media {
       border-radius: 6px !important;
       min-width: 0 !important;
       width: 100% !important;
+      max-width: 100% !important;
       margin: 0 !important;
     }
 
     @media (max-width: 800px) {
-      .insta-grid { grid-template-columns: 1fr; max-width: 540px; }
+      .insta-grid { grid-template-columns: minmax(0, 1fr); max-width: 540px; }
     }
-    /* contain instagram's 326px min-width on very narrow screens */
     #referenssit { overflow-x: hidden; }
 
     /* ─── YRITYS ─── */
@@ -504,7 +507,7 @@
       margin-top: 1.5rem;
       padding-top: 1.5rem;
       border-top: 1px solid rgba(255,255,255,0.08);
-      display: flex; gap: 1rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
     }
     .social-link {
       display: flex; align-items: center; gap: 0.6rem;
@@ -564,26 +567,32 @@
       .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
     }
 
-    /* ─── 320px FIXES ─── */
-    @media (max-width: 380px) {
-      /* hero tag: prevent overflow on narrow screens */
+    /* ─── NARROW SCREEN FIXES (≤ 400px) ─── */
+    @media (max-width: 400px) {
+      /* hero tag: inline-flex ignores parent width → block-level flex */
       .hero-tag {
-        font-size: 0.68rem;
-        letter-spacing: 0.07em;
+        display: flex;
         flex-wrap: wrap;
+        max-width: 100%;
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
       }
       .hero-tag::before { display: none; }
+      h1.hero-title { overflow-wrap: break-word; }
 
-      /* stats: reduce inner padding in single-column layout */
+      /* stats: tighter padding in single-column layout */
       .stat-item { padding: 1.8rem 1rem; }
 
-      /* brands: tighten gap and allow label to wrap */
-      .brands-row { gap: 1rem; }
+      /* brands: allow label to wrap, tighten gap */
+      .brands-row { gap: 0.75rem; }
       .brands-label { white-space: normal; }
-      .brands-list { gap: 1rem; }
+      .brands-list { gap: 0.75rem; }
 
-      /* contact: reduce gap */
+      /* contact */
       .contact-grid { gap: 2rem; }
+
+      /* footer links: tighter gap */
+      .footer-links { gap: 1rem; }
     }
   </style>
 </head>
